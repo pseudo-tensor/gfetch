@@ -1,0 +1,36 @@
+{
+  "name": "@repo/api",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "turbo": {
+    "tasks": {
+      "build": {
+        "outputs": ["dist/**"]
+      },
+      "dev": {
+        "outputs": []
+      }
+    }
+  },
+  "exports": {
+    "./issues": {
+      "default": "./dist/issues.js",
+      "types": "./src/issues.ts"
+    },
+    "./pullreqs": {
+      "default": "./dist/pullreqs.js",
+      "types": "./src/pullreqs.ts"
+    }
+  },
+  "devDependencies": {
+    "@octokit/types": "^14.0.0",
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "octokit": "^4.1.3"
+  }
+}
