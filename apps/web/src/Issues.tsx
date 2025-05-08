@@ -27,8 +27,8 @@ export function Issues() {
   useEffect(() => {
     if (ownerRepo?.owner && ownerRepo?.repo) {
       const fetchIssues = async () => {
-        const result = await IssueFetcher(ownerRepo.owner, ownerRepo.repo);
-        setIssues(result.data);
+        const result = (await IssueFetcher(ownerRepo.owner, ownerRepo.repo)).data;
+        setIssues(result);
       };
       fetchIssues();
     }
@@ -40,8 +40,8 @@ export function Issues() {
         <button onClick={() => {
           if (ownerRepo?.owner && ownerRepo.repo) {
             const fetchIssues = async () => {
-              const result = await IssueFetcher(ownerRepo.owner, ownerRepo.repo);
-              setIssues(result.data);
+              const result = (await IssueFetcher(ownerRepo.owner, ownerRepo.repo)).data;
+              setIssues(result);
             };
             fetchIssues();
           }
@@ -49,17 +49,24 @@ export function Issues() {
           Refresh
         </button>
       </div>
-      {issues?.map((issue: Issue) => (
-        <div key={issue.id}>
+      { issues?.map((issue: Issue) => {
+        try {
+          console.log(issues.length);
+          return (
+          <div key={issue.id}>
           <a href={issue.html_url}>
-            <h2>#{issue.number}</h2>
-            <h2>{issue.title}</h2>
+            <h4>#{issue.number}</h4>
+            <h4>{issue.title}</h4>
           </a>
           <div>created by {issue.user?.login} at {issue.created_at}</div>
           <div>updated at {issue.updated_at}</div>
           <br />
-        </div>
-      ))}
+        </div>)
+        } catch(e) {
+          console.log("render error");
+          return (<div>hi</div>)
+        }
+        })}
     </div>
   );
 }
