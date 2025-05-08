@@ -1,5 +1,5 @@
 import { IssueFetcher } from '@repo/api/issues';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Endpoints } from '@octokit/types';
 type Issue = Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][number];
@@ -7,11 +7,17 @@ type Issue = Endpoints['GET /repos/{owner}/{repo}/issues']['response']['data'][n
 export function Issues() {
 
   const [issues, setIssues] = useState<Issue[]>();
+  useEffect(()=>{
+    const fetch = async () => {
+      const result = await IssueFetcher();
+      setIssues(result.data);
+    }
+    fetch();
+  }, [])
 
   const fetch = async () => {
     const result = await IssueFetcher();
     setIssues(result.data);
-    console.log(issues);
   }
 
   return (

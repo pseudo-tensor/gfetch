@@ -1,5 +1,5 @@
 import { PRFetcher } from '@repo/api/pullreqs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Endpoints } from '@octokit/types';
 type PR = Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][number];
@@ -7,11 +7,17 @@ type PR = Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][numbe
 export function PullReqs() {
 
   const [prs, setPrs] = useState<PR[]>();
+  useEffect(()=>{
+    const fetch = async () => {
+      const result = await PRFetcher();
+      setPrs(result.data);
+    }
+    fetch();
+  },[])
 
   const fetch = async () => {
     const result = await PRFetcher();
     setPrs(result.data);
-    console.log(prs);
   }
 
   return (

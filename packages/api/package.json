@@ -8,7 +8,9 @@
   "turbo": {
     "tasks": {
       "build": {
-        "outputs": ["dist/**"]
+        "outputs": [
+          "dist/**"
+        ]
       },
       "dev": {
         "outputs": []
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@octokit/types": "^14.0.0",
     "@repo/typescript-config": "workspace:*",
+    "@types/chrome": "^0.0.320",
     "typescript": "latest"
   },
   "dependencies": {
