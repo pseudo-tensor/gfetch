@@ -3,9 +3,7 @@ import type { Endpoints } from '@octokit/types';
 
 type Repo = Endpoints['GET /orgs/{org}/repos']['response']['data'][number];
 
-const octokit = new Octokit({
-  auth: 'REMOVED'
-})
+const octokit = new Octokit({});
 export default octokit;
 
 export const fetchAllRepos = async (owner: string) => {
