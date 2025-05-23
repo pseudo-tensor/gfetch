@@ -1,5 +1,5 @@
 {
-  "name": "@repo/api",
+  "name": "@repo/store",
   "type": "module",
   "scripts": {
     "dev": "tsc --watch",
@@ -18,23 +18,16 @@
     }
   },
   "exports": {
-    "./issues": {
-      "default": "./dist/issues.js",
-      "types": "./src/issues.ts"
-    },
-    "./pullreqs": {
-      "default": "./dist/pullreqs.js",
-      "types": "./src/pullreqs.ts"
+    "./types": {
+      "default": "./dist/types.js",
+      "types": "./src/types.ts"
     }
   },
   "devDependencies": {
     "@octokit/types": "^14.0.0",
     "@repo/typescript-config": "workspace:*",
-    "@repo/store": "workspace:*",
-    "@types/chrome": "^0.0.320",
     "typescript": "latest"
   },
   "dependencies": {
-    "octokit": "^4.1.3"
   }
 }

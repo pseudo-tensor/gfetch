@@ -1,55 +1,22 @@
 import { PRFetcher } from '@repo/api/pullreqs';
 import { useEffect, useState } from 'react';
-
-import type { Endpoints } from '@octokit/types';
-type PR = Endpoints['GET /repos/{owner}/{repo}/pulls']['response']['data'][number];
+import { Pull } from '@repo/store/types';
 
 export function Pulls() {
-  const [pulls, setPulls] = useState<PR[]>();
-  const [ownerRepo, setOwnerRepo] = useState<{ owner: string; repo: string } | null>(null);
+  const [pulls, setPulls] = useState<Pull[]>();
 
-  // Extract owner and repo from the active tab's URL
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs.length > 0 && tabs[0].url) {
-        const url = tabs[0].url;
-        const match = url.match(/github\.com\/([^/]+)\/([^/]+)/);
-        if (match) {
-          setOwnerRepo({ owner: match[1], repo: match[2] });
-        } else {
-          console.error("Not a valid GitHub repository URL");
-        }
-      }
-    });
-  }, []);
-
-  // Fetch pull requests when ownerRepo is updated
-  useEffect(() => {
-    if (ownerRepo?.owner && ownerRepo?.repo) {
-      const fetchPulls = async () => {
-        const result = await PRFetcher(ownerRepo.owner, ownerRepo.repo);
-        setPulls(result.data);
-      };
-      fetchPulls();
-    }
-  }, [ownerRepo]);
+    /* TODO: add code to set pulls state */
+  }, [pulls]);
 
   return (
     <div>
       <div>
-        <button onClick={() => {
-          if (ownerRepo?.owner && ownerRepo.repo) {
-            const fetchPulls = async () => {
-              const result = await PRFetcher(ownerRepo.owner, ownerRepo.repo);
-              setPulls(result.data);
-            };
-            fetchPulls();
-          }
-        }}>
+        <button onClick={() => {/* TODO: fetch pull requests here */}}>
           Refresh
         </button>
       </div>
-      {pulls?.map((pr: PR) => {
+      {pulls?.map((pr: Pull) => {
         console.log("prs");
         return (
         <div key={pr.id}>
